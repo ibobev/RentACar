@@ -1,0 +1,9 @@
+﻿@inject Microsoft.AspNetCore.Identity.SignInManager<User> _signInManager
+
+
+@if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-area="" asp-controller="Vehicles" asp-action="Index">Vehicles</a>
+    </li>
+}

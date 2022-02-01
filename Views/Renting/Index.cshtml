@@ -1,0 +1,123 @@
+﻿@model IEnumerable<CSCB766_RentACar.Models.Rent>
+
+@inject CSCB766_RentACar.Lib.IUserService user
+@inject Microsoft.AspNetCore.Identity.SignInManager<User> _signInManager
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+@if (_signInManager.IsSignedIn(User) && !User.IsInRole("Admin"))
+{
+
+
+<h1 class="text-center">Personal Rental Details</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.RentID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.VehicleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateFrom)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DateTo)
+            </th>
+            <th>
+                Total Cost
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            if (item.UserId == user.GetUserId())
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehicleId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateFrom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+}
+
+
+@if (_signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+{
+    <h1>Car Rental Details</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.RentID)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.VehicleId)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateFrom)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateTo)
+                </th>
+                <th>
+                    Total Cost
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RentID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.VehicleId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateFrom)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateTo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cost)
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+}
